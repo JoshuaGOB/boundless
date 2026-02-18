@@ -22,6 +22,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetches all history so push/pull works smoothly
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
       - name: IIIF Tiling
         uses: glenrobson/iiif-tiler-action@main
