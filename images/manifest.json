@@ -1,0 +1,11 @@
+{
+    "@context": "http://iiif.io/api/presentation/3/context.json",
+    "id": "https://joshuagob.github.io/boundless/images/manifest.json",
+    "type": "Manifest",
+    "label": {
+        "en": [
+            "All images loaded in JoshuaGOB/boundless project"
+        ]
+    },
+    "items": []
+}
