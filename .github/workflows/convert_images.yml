@@ -34,8 +34,6 @@ jobs:
           input-dir-v3: images/uploads/3
           output-dir: images
           manifest: images/manifest.json
-          username: joshuagob
-          reponame: boundless
 
       - name: Commit and Push
         run: |
