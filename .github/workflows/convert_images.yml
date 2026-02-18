@@ -10,10 +10,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   convertimages:
     runs-on: ubuntu-latest
@@ -21,11 +17,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetches all history so push/pull works smoothly
+          fetch-depth: 0
+
+      # FORCE STABLE PYTHON: 3.14 is too new and might be causing the dictionary lookup error
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.11' 
 
       - name: IIIF Tiling
         uses: glenrobson/iiif-tiler-action@main
@@ -34,13 +32,13 @@ jobs:
           input-dir-v3: images/uploads/3
           output-dir: images
           manifest: images/manifest.json
+          url: "https://joshuaortizbaco.com/boundless"
 
       - name: Commit and Push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          # Only commit and push if there are actual changes
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Adding IIIF image to repository"
             git pull --rebase origin main
